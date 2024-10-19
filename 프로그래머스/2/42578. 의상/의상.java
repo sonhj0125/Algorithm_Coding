@@ -1,27 +1,30 @@
 import java.util.*;
 
-// clothes = [의상 이름, 의상 종류]
 class Solution {
     public int solution(String[][] clothes) {
-
-        Map<String, Integer> map = new HashMap<>();
-        
         int answer = 1;
         
-        // 의상 종류별로 몇개씩 있는지 Map에 저장
-        for(int i=0; i<clothes.length; i++){
-            map.put(clothes[i][1], map.getOrDefault(clothes[i][1], 0) + 1);
+        // 1. HashMap
+        Map<String, Integer> map = new HashMap<>();
+        
+        // 2. put 저장. 옷 종류별로 구분
+        for(String[] cloth : clothes){
+            
+            if(!map.containsKey(cloth[1])){
+                map.put(cloth[1], 1);
+            }
+            else {
+                map.put(cloth[1], map.get(cloth[1]) + 1);
+            }
+            
+        } // end of for
+        
+        // 입지 않은 경우 추가
+        for(Integer value : map.values()) {
+            answer *= value + 1;
         }
         
-        // 조합, 안입는 경우 고려하기 위해 +1
-        for(String key : map.keySet()){
-            answer *= (map.get(key) + 1);
-        }
-        
-        answer -= 1;    // 모두 안입을 경우 -1 하기
-        
-        return answer;
-        
-        
+        // 아무 종류의 옷도 입지 않은 경우 제외
+        return answer - 1;
     }
 }
