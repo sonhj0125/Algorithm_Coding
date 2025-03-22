@@ -18,6 +18,7 @@ class Solution {
             else {
                 totalScore += b - a;
             }
+            // answer = Math.abs(a - b); 절댓값 계산!!
         }
         
         return totalScore;
